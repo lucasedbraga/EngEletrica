@@ -4,7 +4,6 @@
 #######################################
 
 import pandas as pd
-import math
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -88,18 +87,22 @@ dados_velmed_ano = []
 for ano in range(len(anos)):
     dados_velmed = []
     for mes in range(len(meses)):
+        #Selecionando conjunto de dados com Mês/Ano
         dado_med = dados.loc[dados[2] == anos.iloc[ano][2]]
         dado_med = dado_med.loc[dado_med[1] == meses.iloc[mes][1]]
         med = dado_med.iloc[:, 3:]
         med = pd.DataFrame(med)
+        #Cálculo da Média de Velocidade por Hora
         med = med.mean()
+        #Cálculo da Média de Velocidade por Mês
         vel_med = med.mean()
+        #Agrupando os Dados do Mês
         dados_velmed.append(vel_med)
-
+    #Agrupando os Dados do Ano
     dados_velmed_ano.append(dados_velmed)
 
+#Peparando dados para serem plotados
 dados_velmed_ano = pd.DataFrame(dados_velmed_ano)
-
 x = np.array(meses).flatten()
 dados_velmed_ano = np.array(dados_velmed_ano)
 legenda_ano = anos.astype(str)
@@ -107,7 +110,10 @@ legenda_ano = anos.astype(str)
 ##############################################################################################################
 
 # 4- HISTOGRAMA COM A DISTRIBUIÇÃO ANUAL DA VELOCIDADE DO VENTO
+
+#Iniciando o contador de horas/ano
 contador = np.zeros((15))
+#Coletando o número de Horas
 for col in range(3, len(dados.columns)):
     for lin in range(len(dados)):
         velocidade = dados.iloc[lin][col]
@@ -145,6 +151,7 @@ for col in range(3, len(dados.columns)):
         if 14.5 < velocidade < 15:
             contador[15] += 1
 
+#Dividiando o número de horas por ano
 contador = contador/(len(anos))
 
 # PlOT
