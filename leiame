@@ -1,17 +1,22 @@
-Atividade 01 e 02 - ENE103 
-Lucas Eduardo Silva Braga
-201570023
-12 de Janeiro de 2021
+Sistemas de Geração Eólica - ENE103 
+Lucas Eduardo Silva Braga - 201570023
+Universidade Federal de Juiz de Fora
+27 de Janeiro de 2021
 
 Descrição:
 
 Foi desenvolvido um script Python que realiza a leitura do arquivo Excel com as velocidades
-de vento que fornecido. Este script analisa os dados faltantes e os substitui pela média do dia correspondente e susbstitui o valor faltante. Após o tratamento de dados, o programa plota histogramas com a velocidade média mensal e com a distribuição anual de velocidade do vento.
+de vento que fornecido. Este script analisa os dados faltantes e os substitui pela média do
+dia correspondente e susbstitui o valor faltante. Após o tratamento de dados, são plotados
+histogramas com a velocidade média mensal e com a distribuição anual de velocidade do vento.
 
-O programa plota as distribuições de Rayleigh e Weibul aos anos relativos, em gráficos com informações detalhadas
+
+O programa plota as distribuições de Rayleigh e Weibul aos anos relativos, a duração do vento
+e sua frequência acumulada, em gráficos com informações detalhadas.
 
 Pré Requisitos:
 - Python 3
 - Biblioteca Numpy
 - Biblioteca Pandas
 - Biblioteca Matplotlib
+- Pacote pip String-Color
