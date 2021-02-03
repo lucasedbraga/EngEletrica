@@ -11,7 +11,7 @@ import Editor
 from pathlib import Path
 
 ############################################################################################################
-Editor.titulo('     ANÁLISE DE VENTOS       ')
+Editor.titulo('               ANÁLISE DE VENTOS                  ')
 
 # 1- LEITURA DO ARQUIVO DE DADOS
 
@@ -183,7 +183,6 @@ for ano in range(len(dados_hist)):
                     contador[pos] += 1
     contador_hist.append(contador/(24*len(dados_hist[ano])))
     freq_acumulada.append(freq/(24*len(dados_hist[ano])))
-
 contador_hist = pd.DataFrame(contador_hist)
 durac_vento = []
 
@@ -195,20 +194,34 @@ freq_acumulada = pd.DataFrame(freq_acumulada)
 
 # Distribuição de Rayleigh
 c_list = []
+
 for ano in range(len(velmed_ano)):
     c = (2/math.sqrt(math.pi))*velmed_ano[ano]
     c_list.append(c)
 
 
 f_rayleigh = []
+energia_gerar_ano = []
+energia_notus_ano = []
+energia_verne_ano = []
 passo_dist = 0.1
 eixo_x_rey = np.arange(0.0, 15.0, passo_dist)
+ro = 1.225
 for ano in range(len(c_list)):
     f_ano = []
-    for v in range(0,150):
+    energia_gerar = 0
+    energia_notus = 0
+    energia_verne = 0
+    for v in range(0, 150):
         v = passo_dist*v
         rayleigh = ((2*v)/((c_list[ano])**2))*(math.e**(-(v/c_list[ano])**2))
+        energia_gerar += (0.5*ro*(math.pi*((2.46*0.5)**2))*(v**3))*(rayleigh*8760)
+        energia_notus += (0.5*ro*(math.pi*((1.38*0.5)**2))*(v**3))*(rayleigh*8760)
+        energia_verne += (0.5*ro*(math.pi*((5.55*0.5)**2))*(v**3))*(rayleigh*8760)
         f_ano.append(rayleigh)
+    energia_gerar_ano.append(energia_gerar)
+    energia_notus_ano.append(energia_notus)
+    energia_verne_ano.append(energia_verne)
     f_rayleigh.append(f_ano)
 
 
@@ -230,8 +243,6 @@ for ano in range(len(c_list)):
     f_weibull.append(f_ano)
 
 
-
-
 # PlOT - Todos os Meses
 plt.figure()
 plt.suptitle(f'DADOS DE VENTO - {sistema.upper()} : Comparação entre os Anos')
@@ -249,6 +260,31 @@ plt.show()
 
 
 for ano in range(len(anos)):
+
+    energia_gerar_disp = ((energia_gerar_ano[ano])/1000000)
+    energia_notus_disp = ((energia_notus_ano[ano])/1000000)
+    energia_verne_disp = ((energia_verne_ano[ano])/1000000)
+
+
+    Editor.margem()
+    ###########################################################################################################
+    Editor.relatorio_titulo(f'   RELATÓRIO - ENERSUD GERAR 246 ({sistema.upper()}: {legenda_ano.iloc[ano][2]})')
+    Editor.relatorio_item(f'Energia Cinética Disponível = {energia_gerar_disp:.3f} MWh')
+    Editor.relatorio_end()
+    ###########################################################################################################
+    Editor.relatorio_titulo(f'   RELATÓRIO - ENERSUD NOTUS 138 ({sistema.upper()}: {legenda_ano.iloc[ano][2]})')
+    Editor.relatorio_item(f'Energia Cinética Disponível = {energia_notus_disp:.3f} MWh')
+    Editor.relatorio_end()
+    ############################################################################################################
+    Editor.relatorio_titulo(f'   RELATÓRIO - ENERSUD VERNE 555 ({sistema.upper()}: {legenda_ano.iloc[ano][2]})')
+    Editor.relatorio_item(f'Energia Cinética Disponível = {energia_verne_disp:.3f} MWh')
+    Editor.relatorio_end()
+    #############################################################################################################
+    print('\n')
+    Editor.margem()
+
+#
+
     # PlOT - Detalhado
     plt.suptitle(f'HISTOGRAMAS DE VENTO DETALHADOS - {sistema.upper()} - ANO : {legenda_ano.iloc[ano][2]}')
     plt.subplot(2, 2, 1)

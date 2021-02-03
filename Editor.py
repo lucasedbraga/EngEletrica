@@ -30,6 +30,19 @@ def titulo(texto,autor= 'Lucas Eduardo Silva Braga'):
 
     print('\n')
     print(bold('#'*50).cs('lime2'), end='\n')
-    print(bold(f'           {texto}          ').underline().cs('lime2'), end='\n')
-    print(bold(f'            {autor}             ').underline().cs('lime2'))
+    print(bold(f'{texto}').underline().cs('lime2'), end='\n')
+    print(bold(f'Por : {autor}').cs('lime2'))
     print(bold('#' * 50).cs('lime2'), end='\n')
+
+def relatorio_titulo(texto):
+    print('\n')
+    print(bold('-' * 50).cs('LightGrey10'), end='\n')
+    print(bold(f'{texto.upper()}').cs('LightGrey10'), end='\n')
+    print(bold('-' * 50).cs('LightGrey10'), end='\n')
+
+def relatorio_item(texto):
+    print(cs(f'- {texto}', 'LightGrey10'), end='\n')
+
+def relatorio_end():
+    print(bold('-' * 50).cs('LightGrey10'), end='\n')
+
