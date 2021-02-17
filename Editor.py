@@ -45,4 +45,11 @@ def relatorio_item(texto):
 
 def relatorio_end():
     print(bold('-' * 50).cs('LightGrey10'), end='\n')
+    
+def beep():
+	import os
+
+	duration = 0.05  #seg
+	freq = 2000 #hz
+	os.system(f'play -nq -t alsa synth {duration} sine {freq}')
 
