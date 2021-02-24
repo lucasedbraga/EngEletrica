@@ -233,13 +233,15 @@ f_weibull = []
 eixo_x_weib = np.arange(0.0, 15.0, passo_dist)
 for ano in range(len(c_list)):
     f_ano = []
+    cont = 0
     for v in range(0,150):
         v = passo_dist*v
         k = (desvpad_ano[ano]/velmed_ano[ano])**(-1.086)
         c = (velmed_ano[ano])/(math.gamma(1+(1/k)))
         weibull = (k/c) * ((v/c)**(k-1)) * (math.e**(-((v/c)**k)))
         f_ano.append(weibull)
-
+        cont += weibull
+    print(cont)
     f_weibull.append(f_ano)
 
 
